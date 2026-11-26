@@ -5,7 +5,10 @@ assert 1 <= len(LINE) <= 200, f"line is {len(LINE)} chars"
 assert "\n" not in LINE
 
 import os
-os.makedirs("/output", exist_ok=True)
+assert LINE == LINE.strip(), "line must not have leading or trailing whitespace"
 
-with open("/output/entry.txt", "w", encoding="utf-8") as f:
+out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+os.makedirs(out_dir, exist_ok=True)
+
+with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as f:
     f.write(LINE)
